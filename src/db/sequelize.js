@@ -1,16 +1,28 @@
 const { Sequelize, DataTypes } = require("sequelize")
 const config = require("../../config")
+require("dotenv").config()
 
-const sequelize = new Sequelize({
-    username: config.developpement.username,
-    password: config.developpement.password,
-    database: config.developpement.database,
-    host: config.developpement.host,
-    port: config.developpement.port,
-    logging: config.developpement.logging,
-    timezone: config.developpement.timezone,
-    dialect: config.developpement.dialect
-})
+let sequelize
+if (process.env.NODE_ENV === "production") {
+    sequelize = new Sequelize(process.env.DATABASE_URL, {
+        logging: config.production.logging,
+        dialect: config.production.dialect,
+        timezone: config.production.timezone,
+        dialectOptions: { ...config.production.dialectOptions }
+    })
+}
+else {
+    sequelize = new Sequelize({
+        username: config.developpement.username,
+        password: config.developpement.password,
+        database: config.developpement.database,
+        host: config.developpement.host,
+        port: config.developpement.port,
+        logging: config.developpement.logging,
+        timezone: config.developpement.timezone,
+        dialect: config.developpement.dialect
+    })
+}
 
 const isAuth = () => sequelize.authenticate()
     .then(() => console.log("connection reussit"))

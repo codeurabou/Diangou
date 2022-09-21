@@ -6,12 +6,14 @@ const error = require("./middlewares/error")
 const notFound = require("./middlewares/notFound")
 const auth = require("./middlewares/auth")
 const path = require("path")
+require("dotenv").config()
 
-app.use(cors({ origin: "*" }))
+const accept_url = process.env.NODE_ENV === "production" ? /htt(p|ps):\/\/:diangou.onrender.com\/api\/v1\// : "*"
+app.use(cors({ origin: accept_url }))
 app.use(express.json())
 const base = '/api/v1'
 
-if (process.env.NODE_ENV !== "production") app.use(express.static(path.join(__dirname, "../client/build")))
+app.use(express.static(path.join(__dirname, "../client/build")))
 app.use("/file", express.static(path.join(__dirname, "uploads"), { fallthrough: true }))
 
 isAuth()
@@ -33,10 +35,10 @@ app.use(`${base}/notes`, auth, require("./routes/note.routes"))
 app.use(`${base}/cours`, auth, require("./routes/cours.routes"))
 app.use(`${base}/appels`, auth, require("./routes/appel.routes"))
 app.use(`${base}/users`, auth, require("./routes/user.routes"))
-app.use(`${base}/uploads`,  require("./routes/upload.routes"))
+app.use(`${base}/uploads`, require("./routes/upload.routes"))
 
 app.use(error)
-if (process.env.NODE_ENV !== "production") app.get("*", (req, res) => res.sendFile(path.join(__dirname, "../client/build/index.html")))
+app.get("*", (req, res) => res.sendFile(path.join(__dirname, "../client/build/index.html")))
 app.use(notFound)
 
 module.exports = app

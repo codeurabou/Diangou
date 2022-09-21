@@ -10,5 +10,16 @@ module.exports = {
         dialect: "postgres",
         timezone: "+00:00",
         logging: false,
+    },
+    production: {
+        logging: false,
+        dialect: "postgres",
+        timezone: "+00:00",
+        dialectOptions: {
+            ssl: {
+                require: true,
+                rejectUnauthorized: false,
+            }
+        }
     }
 }
