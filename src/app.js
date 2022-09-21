@@ -8,7 +8,7 @@ const auth = require("./middlewares/auth")
 const path = require("path")
 require("dotenv").config()
 
-app.use(cors({ origin:  }))
+app.use(cors({ origin: "*" }))
 app.use(express.json())
 const base = '/api/v1'
 
