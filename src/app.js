@@ -8,7 +8,7 @@ const auth = require("./middlewares/auth")
 const path = require("path")
 require("dotenv").config()
 
-const accept_url = process.env.NODE_ENV === "production" ? /htt(p|ps):\/\/:diangou.onrender.com\/api\/v1\// : "*"
+const accept_url = process.env.NODE_ENV === "production" ? "https://diangou.onrender.com" : "*"
 app.use(cors({ origin: accept_url }))
 app.use(express.json())
 const base = '/api/v1'

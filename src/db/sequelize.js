@@ -8,7 +8,7 @@ if (process.env.NODE_ENV === "production") {
         logging: config.production.logging,
         dialect: config.production.dialect,
         timezone: config.production.timezone,
-        dialectOptions: { ...config.production.dialectOptions }
+        dialectOptions: config.production.dialectOptions
     })
 }
 else {
