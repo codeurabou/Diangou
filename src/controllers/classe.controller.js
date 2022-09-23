@@ -40,7 +40,7 @@ const classeCtrl = {
     getEtabClasse: async (req, res, next) => {
         try {
             const { etId } = req.params
-            const query = `select cl_id value,cl_nom label,se_id,se_nom,se_niveau,disabled,count(el_id) nb_el
+            const query = `select cl_id as value,cl_nom label,se_id,se_nom,se_niveau,disabled,count(el_id) nb_el
             from classes join series using(se_id) left join inscriptions using(cl_id) where et_id=${etId}
             group by et_id,cl_id,se_id,se_nom,se_niveau order by se_niveau`
             return res.json(await sequelize.query(query, { type: sequelize.QueryTypes.SELECT }))
