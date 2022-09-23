@@ -43,7 +43,7 @@ const ascolaireCtrl = {
         try {
             const { etId } = req.params
             const query = `
-                select as_id as value,concat(extract(year from as_d),'-',extract(year from as_f)) label,as_d,as_f,disabled
+                select as_id as value,concat(extract(year from as_d),'-',extract(year from as_f)) as label,as_d,as_f,disabled
                 from ascolaires where et_id=${etId}
             `
             return res.json(await sequelize.query(query, { type: sequelize.QueryTypes.SELECT }))

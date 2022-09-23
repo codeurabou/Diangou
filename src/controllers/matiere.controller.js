@@ -36,7 +36,7 @@ const matCtrl = {
     },
     getMatiere: async (req, res, next) => {
         try {
-            const query = `select ma_id as value,ma_nom label,ma_nomab from matieres order by ma_nom`
+            const query = `select ma_id as value,ma_nom as label,ma_nomab from matieres order by ma_nom`
             return res.json(await sequelize.query(query, { type: sequelize.QueryTypes.SELECT }))
         } catch (err) { return next(err) }
     },
