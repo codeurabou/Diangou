@@ -98,7 +98,7 @@ const serieCtrl = {
         try {
             const { etId } = req.params
             const query = `
-            select se_id value,se_nom as label,es_id,es_etat,es_frais,es_sub 
+            select se_id as value,se_nom as label,es_id,es_etat,es_frais,es_sub 
                 from series join etabseries using (se_id) where et_id=${etId} order by se_niveau`
             return res.json(await sequelize.query(query, { type: sequelize.QueryTypes.SELECT }))
         } catch (err) { return next(err) }
